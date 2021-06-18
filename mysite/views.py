@@ -7,8 +7,28 @@ def index(request):
 def about(request):
     return HttpResponse("<h1>Hello</h1>")
 
+def analyze(request):
+    text = request.GET.get('text','default')
+    removepunc = request.GET.get('removepunc','off')
+    print(removepunc)
+    print(text)
+    if removepunc=="on":
+        Punctuations = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
+        analyzed=""
+        for char in text:
+            if char not in Punctuations:
+                analyzed = analyzed + char
+        params = {'purpose':'Removed Punctuations','analyzed_text':analyzed}
+    else:
+        return HttpResponse("Error")
+        
+    return render(request,'analyze.html',params)
+
+
 def removepunc(request):
     text = request.GET.get('text','default')
+    removepunc = request.GET.get('text','off')
+    print(removepunc)
     print(text)
     return HttpResponse("capitalize first")
 
