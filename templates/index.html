@@ -41,7 +41,7 @@
         You can do anything with your text here
       </div>
       <div class="container">
-    <form action="/analyze" method="get">
+    <form action="/analyze" method="post">{%csrf_token%}
         <div class="form-group">
             <label for="exampleFormControlTextarea1" class="form-label" >Example textarea</label>
             <textarea class="form-control" id="exampleFormControlTextarea1" name="text" rows="9"></textarea>

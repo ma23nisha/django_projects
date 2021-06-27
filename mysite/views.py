@@ -8,12 +8,12 @@ def about(request):
     return render(request,'index.html')
 
 def analyze(request):
-    text = request.GET.get('text','default')
-    removepunc = request.GET.get('removepunc','off')
-    fullcaps = request.GET.get('fullcaps','off')
-    newlineremove = request.GET.get('newlineremove','off')
-    removespace = request.GET.get('removespace','off')
-    charcount = request.GET.get('charcount','off')
+    text = request.POST.get('text','default')
+    removepunc = request.POST.get('removepunc','off')
+    fullcaps = request.POST.get('fullcaps','off')
+    newlineremove = request.POST.get('newlineremove','off')
+    removespace = request.POST.get('removespace','off')
+    charcount = request.POST.get('charcount','off')
 
     if removepunc == "on":
         Punctuations = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
@@ -35,7 +35,7 @@ def analyze(request):
 
     if(removespace == "on"):
         analyzed = ""
-        for index,char  in enumerate(text):
+        for char  in text:
             if char!=" ":
                 analyzed = analyzed + char.upper()
         params = {'purpose':'Changed to Upper','analyzed_text':analyzed}
@@ -43,9 +43,9 @@ def analyze(request):
 
 
     if(charcount == "on"):
-        count=0
+        count = 0
         for char in text:
-            count+=1
+            count += 1
         params = {'purpose':'character count','analyzed_text':count}
         return render(request,'analyze.html',params)
             
@@ -60,12 +60,12 @@ def analyze(request):
     else:
         return HttpResponse("Error")
         
-    return render(request,'analyze.html',params)
+   
 
 
 def removepunc(request):
-    text = request.GET.get('text','default')
-    removepunc = request.GET.get('text','off')
+    text = request.POST.post('text','default')
+    removepunc = request.POST.post('text','off')
     print(removepunc)
     print(text)
     return HttpResponse("capitalize first")
